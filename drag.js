@@ -311,7 +311,7 @@ function setHtml(eleDrag) {
     //文字创建时自动获取焦点
     $dragEle.find('textarea').focus();
     //图片创建时自动获取点击事件
-    // $dragEle.find('.imgFile').click();
+    $dragEle.find('.imgFile').click();
 }
 
 

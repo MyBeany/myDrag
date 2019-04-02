@@ -20,6 +20,7 @@
     top: 30px;
     left: 30px;
     display: none;
+    z-index: 999;
 }
 
 .rulerHorizontal {
