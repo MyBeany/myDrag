@@ -1,37 +1,20 @@
 # myDrag
 
 #### 介绍
-使用jquery 通过拖拽实现绘画矩形，圆形，横竖线，文本框等内容，可用作绘制电子报表
-
-#### 软件架构
-软件架构说明
-
-
-#### 安装教程
-
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### 使用说明
-
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### 参与贡献
-
-1. Fork 本仓库
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
+使用jquery 通过拖拽实现绘画矩形，圆形，横竖线，文本框等内容，可用作绘制电子报表。
+可设置标尺，设置元素背景色，设置字体颜色，上传图片等
+设置锁屏功能
+选中元素，可以按键盘上下左右进行移动
+选中元素，按Shift+上下左右可调整宽高
+选中元素，按delete可以删除元素
+可获取所有生成的元素
 
 
-#### 码云特技
+#### 项目界面
+![项目主界面](https://images.gitee.com/uploads/images/2019/0402/211454_4a9696d2_1325113.png "微信截图_20190402210705.png")
+![根据右侧功能栏拖动元素到主界面进行调整](https://images.gitee.com/uploads/images/2019/0402/211505_ec1b9e00_1325113.png "微信截图_20190402211352.png")
+![基本操作](https://images.gitee.com/uploads/images/2019/0402/212159_c7f560fb_1325113.gif "GIF.gif")
+![设置前景色背景色](https://images.gitee.com/uploads/images/2019/0402/213220_c50a235d_1325113.gif "GIF111.gif")
 
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+
+ **如对您有帮助，请帮忙点下Star**
