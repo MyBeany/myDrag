@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div class="rulerHorizontal">
+</div>
+<div class="rulerVertical">
+</div>
+<!--主图显示位置-->
+<div id="ele"></div>
+
+<!--锁屏功能使用蒙层-->
+<div class="ele"></div>
+
+<div class="dragWrap">
+    <div draggable="true" class="drag-item rectangle" type="dragRectangle"></div>
+    <div style="height: 10px"></div>
+    <div draggable="true" class="drag-item horizontalLine" type="dragHorizontalLine"></div>
+    <div style="height: 10px"></div>
+    <div draggable="true" class="drag-item verticalLine" type="dragVerticalLine"></div>
+    <div style="height: 10px"></div>
+    <div draggable="true" class="drag-item rounded" type="dragRounded"></div>
+    <div style="height: 10px"></div>
+    <div draggable="true" class="drag-item circle" type="dragCircle"></div>
+    <div style="height: 10px"></div>
+    <div draggable="true" class="drag-item words" type="dragWords">Aa</div>
+    <div style="height: 10px"></div>
+    <div draggable="true" class="drag-item noteText" type="dragNoteText"><hr/><hr/><hr/></div>
+    <div style="height: 10px"></div>
+    <div draggable="true" class="drag-item imgItem" type="dragImg"></div>
+    <div style="height: 10px"></div>
+    <div onclick="lockScreen(this)">锁屏</div>
+    <div style="height: 10px"></div>
+    <input type="color" id="color">
+    <div onclick="setFontColor()">前景色</div>
+    <div onclick="setBgColor()">背景色</div>
+    <div style="height: 10px"></div>
+    <div onclick="getDate()">生成数据</div>
+</div>
+
+<!--矩形使用控制点-->
+<div class="cacheEle">
+    <div data-type="cRightDown" class="dragDot cRightDown"></div>
+    <div data-type="cLeftDown" class="dragDot cLeftDown"></div>
+    <div data-type="cRightUp" class="dragDot cRightUp"></div>
+    <div data-type="cLeftUp" class="dragDot cLeftUp"></div>
+    <div data-type="cRight" class="dragDot cRight"></div>
+    <div data-type="cDown" class="dragDot cDown"></div>
+    <div data-type="cLeft" class="dragDot cLeft"></div>
+    <div data-type="cUp" class="dragDot cUp"></div>
+</div>
+
+<!--直线使用控制点-->
+<div class="cacheEleHorizontalLine">
+    <div data-type="cRight" class="dragDot cRight"></div>
+    <div data-type="cLeft" class="dragDot cLeft"></div>
+</div>
+
+<!--竖线使用控制点-->
+<div class="cacheEleVerticalLine">
+    <div data-type="cDown" class="dragDot cDown"></div>
+    <div data-type="cUp" class="dragDot cUp"></div>
+</div>
+
+<!--文字框使用  包括文本框-->
+<div class="cacheEleWords">
+    <div  data-type="drag" class="dragDot cRightDown dragDotMove"></div>
+    <div data-type="drag" class="dragDot cLeftDown dragDotMove"></div>
+    <div data-type="drag" class="dragDot cRightUp dragDotMove"></div>
+    <div data-type="drag" class="dragDot cLeftUp dragDotMove"></div>
+    <div data-type="cRight" class="dragDot cRight"></div>
+    <div data-type="cLeft" class="dragDot cLeft"></div>
+    <textarea class="textarea" onkeyup="textareaKeyUp(this)"></textarea>
+</div>
+
+<div class="cacheEleNoteText">
+    <div data-type="cRightDown" class="dragDot cRightDown"></div>
+    <div data-type="cLeftDown" class="dragDot cLeftDown"></div>
+    <div data-type="cRightUp" class="dragDot cRightUp"></div>
+    <div data-type="cLeftUp" class="dragDot cLeftUp"></div>
+    <div data-type="cRight" class="dragDot cRight"></div>
+    <div data-type="cDown" class="dragDot cDown"></div>
+    <div data-type="cLeft" class="dragDot cLeft"></div>
+    <div data-type="cUp" class="dragDot cUp"></div>
+    <hr/><hr/><hr/>
+</div>
+
+<div class="cacheEleImg">
+    <div data-type="cRightDown" class="dragDot cRightDown"></div>
+    <div data-type="cLeftDown" class="dragDot cLeftDown"></div>
+    <div data-type="cRightUp" class="dragDot cRightUp"></div>
+    <div data-type="cLeftUp" class="dragDot cLeftUp"></div>
+    <div data-type="cRight" class="dragDot cRight"></div>
+    <div data-type="cDown" class="dragDot cDown"></div>
+    <div data-type="cLeft" class="dragDot cLeft"></div>
+    <div data-type="cUp" class="dragDot cUp"></div>
+    <input type="file" class="imgFile" accept="image/*" onchange="imgFileChange(this)">
+</div>
+<script src="jquery2.0.3.js"></script>
+<script src="drag.js"></script>
+
+</body>
+</html>

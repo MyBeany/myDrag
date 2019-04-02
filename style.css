@@ -1,0 +1,374 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+#ele {
+    position: absolute;
+    overflow: hidden;
+    border: 1px solid #000000;
+    top: 30px;
+    left: 30px;
+}
+
+.ele {
+    width: 800px;
+    height: 500px;
+    position: absolute;
+    overflow: hidden;
+    border: 1px solid #000000;
+    top: 30px;
+    left: 30px;
+    display: none;
+}
+
+.rulerHorizontal {
+    height: 29px;
+    border-bottom: 1px solid;
+    display: flex;
+    width: 0;
+}
+
+.rulerHorizontalFive{
+    padding-left: 29px;
+    height: 25px;
+    border-right: 1px solid;
+    margin-top: 5px;
+    position: relative;
+}
+
+.rulerHorizontalOne{
+    padding-left: 4px;
+    height: 10px;
+    border-right: 1px solid;
+    margin-top: 20px;
+}
+
+.rulerHorizontalSize{
+    position: absolute;
+    font-size: 12px;
+    padding-left: 2px;
+}
+
+.rulerVertical {
+    width: 29px;
+    border-right: 1px solid
+}
+
+.rulerVerticalFive{
+    padding-top: 29px;
+    border-bottom: 1px solid;
+    width: 25px;
+    margin-left: 5px;
+    position: relative;
+}
+
+.rulerVerticalOne{
+    padding-top: 4px;
+    width: 10px;
+    border-bottom: 1px solid;
+    margin-left: 20px;
+}
+
+.rulerVerticalSize{
+    position: absolute;
+    font-size: 12px;
+    padding-top: 2px;
+}
+
+.active {
+    border: 4px dashed #ffa000;
+}
+
+.drag {
+    width: 60px;
+    height: 40px;
+    position: absolute;
+    cursor: move;
+    box-sizing: border-box;
+    z-index: 999;
+    border: 1px solid #000;
+    text-align: center;
+    background-color: #fff;
+}
+
+.dragDot {
+    width: 4px;
+    height: 4px;
+    background: #fff;
+    border: 1px solid #888;
+    position: absolute;
+    opacity: 0.8;
+    border-radius: 50%;
+}
+
+.cLeftUp {
+    top: -3px;
+    left: -3px;
+    cursor: nw-resize;
+}
+
+.cUp {
+    top: -3px;
+    left: 50%;
+    margin-left: -3px;
+    cursor: n-resize;
+}
+
+.cRightUp {
+    top: -3px;
+    right: -3px;
+    cursor: ne-resize;
+}
+
+.cRight {
+    right: -3px;
+    top: 50%;
+    margin-top: -3px;
+    cursor: e-resize;
+}
+
+.cRightDown {
+    bottom: -3px;
+    right: -3px;
+    cursor: se-resize;
+}
+
+.cDown {
+    bottom: -3px;
+    left: 50%;
+    margin-left: -3px;
+    cursor: s-resize;
+}
+
+.cLeftDown {
+    bottom: -3px;
+    left: -3px;
+    cursor: sw-resize;
+}
+
+.cLeft {
+    left: -3px;
+    top: 50%;
+    margin-top: -3px;
+    cursor: w-resize;
+}
+
+.drag.active {
+    border: none;
+    background: none;
+}
+
+.drag.active div {
+    display: none;
+}
+
+#wrap {
+    margin-top: 10px;
+}
+
+.dragWrap {
+    width: 200px;
+    position: fixed;
+    right: 50px;
+    top: 10px;
+}
+
+.cacheEle {
+    display: none;
+}
+
+.cacheEleHorizontalLine {
+    display: none;
+}
+
+.cacheEleVerticalLine {
+    display: none;
+}
+
+.cacheEleWords {
+    display: none;
+}
+
+.cacheEleNoteText {
+    display: none;
+}
+
+.cacheEleImg {
+    display: none;
+}
+
+/* 右侧矩形样式*/
+.rectangle {
+    width: 50px;
+    height: 30px;
+    border: 1px solid;
+    cursor: pointer;
+}
+
+/* 右侧直线样式*/
+.horizontalLine {
+    width: 50px;
+    border: 1px solid;
+    cursor: pointer;
+}
+
+/* 右侧竖线样式*/
+.verticalLine {
+    height: 50px;
+    border: 1px solid;
+    cursor: pointer;
+    width: 0px;
+}
+
+/* 右侧圆角矩形样式*/
+.rounded {
+    width: 50px;
+    height: 30px;
+    border: 1px solid;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+/**
+右侧圆形
+ */
+.circle {
+    width: 50px;
+    height: 50px;
+    border: 1px solid;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+/* 右侧文字矩形样式*/
+.words {
+    width: 50px;
+    height: 30px;
+    border: 1px solid;
+    cursor: pointer;
+}
+
+/**
+右侧笔记本文本域样式
+ */
+.noteText {
+    padding: 0 3px;
+    width: 50px;
+    border: 1px solid;
+    cursor: pointer;
+}
+
+.imgItem {
+    width: 50px;
+    height: 50px;
+    border: 1px solid;
+    cursor: pointer;
+    background-color: #888888;
+}
+
+.dragRectangle {
+    width: 50px;
+    height: 30px;
+    position: absolute;
+    cursor: move;
+    box-sizing: border-box;
+    z-index: 999;
+    border: 1px solid #000;
+    text-align: center;
+}
+
+.dragHorizontalLine {
+    width: 50px;
+    position: absolute;
+    cursor: move;
+    box-sizing: border-box;
+    z-index: 999;
+    border: 0;
+    border-bottom: 1px solid #000;
+    text-align: center;
+    height: 0;
+}
+
+.dragVerticalLine {
+    width: 0px;
+    position: absolute;
+    cursor: move;
+    box-sizing: border-box;
+    z-index: 999;
+    border: 0;
+    border-left: 1px solid #000;
+    text-align: center;
+    height: 50px;
+}
+
+.dragRounded {
+    width: 50px;
+    height: 30px;
+    position: absolute;
+    cursor: move;
+    box-sizing: border-box;
+    z-index: 999;
+    border: 1px solid #000;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.dragCircle {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    cursor: move;
+    box-sizing: border-box;
+    z-index: 999;
+    border: 1px solid #000;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.dragWords {
+    width: auto;
+    height: 30px;
+    position: absolute;
+    cursor: move;
+    box-sizing: border-box;
+    z-index: 999;
+    border: 0;
+}
+
+.textarea {
+    width: 100px;
+    border: 0;
+    resize: none;
+    overflow: hidden;
+    outline: 0 none;
+    box-shadow: 0 0 1px #999;
+    border-radius: 1px;
+    box-sizing: border-box;
+}
+
+hr {
+    margin-top: 10px;
+}
+
+.dragNoteText {
+    padding: 0 3px;
+    width: 100px;
+    background-color: #fff;
+}
+
+.dragDotMove {
+    cursor: move;
+}
+
+.imgFile {
+    display: none;
+}
+
+.dragImg {
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 80px;
+    height: 80px;
+    background-color: #888;
+}
