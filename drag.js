@@ -7,14 +7,13 @@ var rulerSize = 30;
 var cAreaTop = getPosition(cArea).Y - rulerSize; // 容器距离浏览器上边界距离
 var cAreaLeft = getPosition(cArea).X - rulerSize; // 容器距离浏览器左边界距离
 var currentEle = null; // 缓存当前拖动的元素
-var clickEle = null;  //缓存当前选中元素
+var clickEle = [];  //缓存当前选中元素
 var mousePosition, mouseStartX, mouseStartY, dragLeft, dragTop, dragMaxH, dragMaxW;  // 定义按下鼠标产生的变量
 
 //画布大小   宽8.5英寸   高5.5英寸
 var areaWidthIn = 8.5;
 var areaHeightIn = 5.5;
-
-
+var isCopy = false;
 var movePx = 3;  //全局移动点
 
 $('body').on('mousedown', '.drag', startDrag);
@@ -30,30 +29,54 @@ $('body').on('dblclick', '.dragImg', changeImg);
 
 $(document).keydown(function (e) {
     var eCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
-    if (clickEle != null) {
+    if (clickEle.length > 0) {
         //判断是否是选中文本
         var textareaEle = $(clickEle).find('textarea');
         if (!(textareaEle.length !== 0 && (textareaEle.is(":focus")))) {
             if (eCode === 37 && e.shiftKey) {
-                $(clickEle).css('width', $(clickEle).outerWidth(true) - movePx);
+                $(currentEle).css('width', $(currentEle).outerWidth(true) - movePx);
             } else if (eCode === 39 && e.shiftKey) {
-                $(clickEle).css('width', $(clickEle).outerWidth(true) + movePx);
+                $(currentEle).css('width', $(currentEle).outerWidth(true) + movePx);
             } else if (eCode === 38 && e.shiftKey) {
-                $(clickEle).css('height', $(clickEle).outerHeight(true) - movePx);
-                textareaHrNum(clickEle, $(clickEle).outerHeight(true));
+                $(currentEle).css('height', $(currentEle).outerHeight(true) - movePx);
+                textareaHrNum(currentEle, $(currentEle).outerHeight(true));
             } else if (eCode === 40 && e.shiftKey) {
-                $(clickEle).css('height', $(clickEle).outerHeight(true) + movePx);
-                textareaHrNum(clickEle, $(clickEle).outerHeight(true));
+                $(currentEle).css('height', $(currentEle).outerHeight(true) + movePx);
+                textareaHrNum(currentEle, $(currentEle).outerHeight(true));
             } else if ((eCode === 8 || eCode === 46)) {  //Delete键或Backspace键删除元素
-                $(clickEle).remove();
+                for (var i = 0; i < clickEle.length; i++) {
+                    var clickEleItem = clickEle[i];
+                    $(clickEleItem).remove();
+                }
             } else if (eCode === 37) { //左键移动
-                $(clickEle).css('left', $(clickEle).position().left - movePx + 'px');
+                for (var i = 0; i < clickEle.length; i++) {
+                    var clickEleItem = clickEle[i];
+                    $(clickEleItem).css('left', $(clickEleItem).position().left - movePx + 'px');
+                }
             } else if (eCode === 38) { //上键移动
-                $(clickEle).css('top', $(clickEle).position().top - movePx + 'px');
+                for (var i = 0; i < clickEle.length; i++) {
+                    var clickEleItem = clickEle[i];
+                    $(clickEleItem).css('top', $(clickEleItem).position().top - movePx + 'px');
+                }
             } else if (eCode === 39) { //右键移动
-                $(clickEle).css('left', $(clickEle).position().left + movePx + 'px');
+                for (var i = 0; i < clickEle.length; i++) {
+                    var clickEleItem = clickEle[i];
+                    $(clickEleItem).css('left', $(clickEleItem).position().left + movePx + 'px');
+                }
             } else if (eCode === 40) { //下键移动
-                $(clickEle).css('top', $(clickEle).position().top + movePx + 'px');
+                for (var i = 0; i < clickEle.length; i++) {
+                    var clickEleItem = clickEle[i];
+                    $(clickEleItem).css('top', $(clickEleItem).position().top + movePx + 'px');
+                }
+            } else if (eCode === 67 && e.ctrlKey) {
+                isCopy = true;
+            } else if (eCode === 86 && e.ctrlKey) {
+                if (isCopy) {
+                    for (var j = 0; j < clickEle.length; j++) {
+                        var clickEleItem = clickEle[j];
+                        setHtml($(clickEleItem), 1, j);
+                    }
+                }
             }
         }
     }
@@ -144,16 +167,18 @@ function dragControlSize(e) {
     //屏蔽事件冒泡
     e.stopPropagation();
     var thisDrag = this;
-    clickEle = thisDrag;
+    clickEle.push(thisDrag);
     //用做多选   备用
-    // if(!event.ctrlKey){
-    //移除非当前元素的大小控制器
-    $(".drag").each(function () {
-        if (thisDrag != this) {
-            dragControlSizeForAll(this);
-        }
-    });
-    // }
+    if (!event.ctrlKey) {
+        //移除非当前元素的大小控制器
+        $(".drag").each(function () {
+            if (thisDrag != this) {
+                dragControlSizeForAll(this);
+            }
+        });
+        clickEle = [];
+        clickEle.push(this);
+    }
     $(thisDrag).children('div').css('display', 'block');
 }
 
@@ -170,7 +195,7 @@ function dragControlSizeForAll(e) {
  * @param e
  */
 function remoreAllControlSize(e) {
-    clickEle = null;
+    clickEle = [];
     $(this).children('.drag').children('div').css('display', 'none');
 }
 
@@ -283,35 +308,51 @@ $container.on('dragover', function (ev) {
     endPosition.left = ev.originalEvent.x;
     endPosition.top = ev.originalEvent.y;
     if (eleDrag) {
-        setHtml(eleDrag)
+        setHtml(eleDrag, 0)
     }
     $(this).toggleClass('active');
 });
 
-function setHtml(eleDrag) {
-    //元素类型   有矩形，圆角矩形，线条，圆，图片
-    var eleDregType = $(eleDrag).attr('type');
-    var src = $(eleDrag).attr('src');
-    var $img = $('<img>');
-    var $dragEle = $('<div>');
-    var directionBtn = getHtmlForType(eleDregType);
-    $(".drag").each(function () {
-        dragControlSizeForAll(this);
-    });
-    $img.attr('src', src).attr('data-type', 'drag');
-    $dragEle.addClass(eleDregType).addClass("drag").attr('data-type', 'drag').append(directionBtn);
-    clickEle = $dragEle;
-    $container.append($dragEle);
-    $dragEle.css({
-        //解释算法    endPosition为距离浏览器边缘的长度    减去rulerSize是减去标尺长度
-        // -2是减去边框宽度   width/2是控制鼠标在元素中心
-        'left': endPosition.left - $dragEle.width() / 2 - rulerSize-2,
-        'top': endPosition.top - $dragEle.height() / 2 - rulerSize-2
-    });
-    //文字创建时自动获取焦点
-    $dragEle.find('textarea').focus();
-    //图片创建时自动获取点击事件
-    $dragEle.find('.imgFile').click();
+function setDragElePosition(eleDrag, $dragEle, type) {
+    if (type === 0) {
+        $dragEle.css({
+            //解释算法    endPosition为距离浏览器边缘的长度    减去rulerSize是减去标尺长度
+            // -2是减去边框宽度   width/2是控制鼠标在元素中心
+            'left': endPosition.left - $dragEle.width() / 2 - rulerSize - 2,
+            'top': endPosition.top - $dragEle.height() / 2 - rulerSize - 2
+        });
+        clickEle = [];
+        clickEle.push($dragEle)
+    } else {
+        $dragEle.css({
+            'left': eleDrag[0].offsetLeft + 3,
+            'top': eleDrag[0].offsetTop + 3
+        });
+    }
+}
+
+function setHtml(eleDrag, type, index) {
+    if (type === 0) {
+        //元素类型   有矩形，圆角矩形，线条，圆，图片
+        var eleDregType = $(eleDrag).attr('type');
+        var $dragEle = $('<div>');
+        var directionBtn = getHtmlForType(eleDregType);
+        $(".drag").each(function () {
+            dragControlSizeForAll(this);
+        });
+        $dragEle.addClass(eleDregType).addClass("drag").attr('data-type', 'drag').attr('type', eleDregType).append(directionBtn);
+        $container.append($dragEle);
+        setDragElePosition(eleDrag, $dragEle, type)
+        //文字创建时自动获取焦点
+        $dragEle.find('textarea').focus();
+        currentEle = $dragEle;
+    } else {
+        var $dragEle = eleDrag.clone(true);
+        clickEle[index] = $dragEle;
+        $container.append($dragEle);
+        setDragElePosition(eleDrag, $dragEle, type);
+        dragControlSizeForAll(eleDrag);
+    }
 }
 
 
@@ -368,12 +409,19 @@ function lockScreen(e) {
 
 function setFontColor() {
     var color = $("#color").val();
-    $(clickEle).children().css('color', color);
+    for (var i = 0; i < clickEle.length; i++) {
+        var clickEleItem = clickEle[i];
+        $(clickEleItem).children().css('color', color);
+    }
+
 }
 
 function setBgColor() {
     var color = $("#color").val();
-    $(clickEle).css('background-color', color);
+    for (var i = 0; i < clickEle.length; i++) {
+        var clickEleItem = clickEle[i];
+        $(clickEleItem).css('background-color', color);
+    }
 }
 
 function createData() {
